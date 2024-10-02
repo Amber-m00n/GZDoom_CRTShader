@@ -13,7 +13,7 @@ vec3 xsample( sampler2D tex, vec2 tc )
 vec3 filmic( vec3 LinearColor )
 {
 	vec3 x = max(vec3(0.0), LinearColor-0.004);
-	return (x*(6.2*x+0.5))/(x*(6.2*x+1.7)+0.06);
+	return (x*(6.2*x+0.7))/(x*(6.2*x+1.7)+0.06);
 }
 
 vec3 blur(sampler2D tex, vec2 tc, float offs)
@@ -21,7 +21,8 @@ vec3 blur(sampler2D tex, vec2 tc, float offs)
 	vec4 xoffs = offs * vec4(-2.0, -1.0, 1.0, 2.0) / iResolution.x;
 	vec4 yoffs = offs * vec4(-2.0, -1.0, 1.0, 2.0) / iResolution.y;
 	
-	vec3 color = vec3(0.0, 0.0, 0.0);
+	//166, 255, 255
+	vec3 color = vec3(0.01, 0.01, 0.041);
 	color += xsample(tex,tc + vec2(xoffs.x, yoffs.x)) * 0.00366;
 	color += xsample(tex,tc + vec2(xoffs.y, yoffs.x)) * 0.01465;
 	color += xsample(tex,tc + vec2(    0.0, yoffs.x)) * 0.02564;
@@ -40,13 +41,13 @@ vec3 blur(sampler2D tex, vec2 tc, float offs)
 	color += xsample(tex,tc + vec2(xoffs.z, 0.0)) * 0.09524;
 	color += xsample(tex,tc + vec2(xoffs.w, 0.0)) * 0.02564;
 	
-	color += xsample(tex,tc + vec2(xoffs.x, yoffs.z)) * 0.01465;
+	color += xsample(tex,tc + vec2(xoffs.x, yoffs.z)) * 0.04465;
 	color += xsample(tex,tc + vec2(xoffs.y, yoffs.z)) * 0.05861;
 	color += xsample(tex,tc + vec2(    0.0, yoffs.z)) * 0.09524;
 	color += xsample(tex,tc + vec2(xoffs.z, yoffs.z)) * 0.05861;
 	color += xsample(tex,tc + vec2(xoffs.w, yoffs.z)) * 0.01465;
 	
-	color += xsample(tex,tc + vec2(xoffs.x, yoffs.w)) * 0.00366;
+	color += xsample(tex,tc + vec2(xoffs.x, yoffs.w)) * 0.00666;
 	color += xsample(tex,tc + vec2(xoffs.y, yoffs.w)) * 0.01465;
 	color += xsample(tex,tc + vec2(    0.0, yoffs.w)) * 0.02564;
 	color += xsample(tex,tc + vec2(xoffs.z, yoffs.w)) * 0.01465;
